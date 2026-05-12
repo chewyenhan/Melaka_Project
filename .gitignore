@@ -1,0 +1,11 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# API keys / secrets (if any)
+.env
+api_key.txt
+
+# Backups
+*.bak
+*.tmp

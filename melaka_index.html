@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>马六甲：东方十字路口</title>
+    <link rel="stylesheet" href="melaka_style.css">
+</head>
+<body>
+
+<div id="custom-toast"></div>
+
+<div id="vol-ctrl">
+    <div class="vol-item">📣 语音: <input type="range" id="vol-speech" min="0" max="1" step="0.1" value="1.0"></div>
+    <div class="vol-item">🥁 背景音乐: <input type="range" id="vol-drum" min="0" max="1" step="0.05" value="0.2"></div>
+</div>
+
+<div id="p-start" class="panel active" style="text-align: center; justify-content: center; background: #003366; border: 15px solid #FFD700; border-style: ridge; position: relative; overflow: hidden;">
+    <div style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:0; opacity: 0.3; pointer-events: none;">
+        <img src="assets/start_bg.png" style="width:100%; height:100%; object-fit: cover;">
+    </div>
+    
+    <div style="position: relative; z-index:10; width: 100%;">
+        <div style="margin-bottom: 20px;">
+            <h1 style="color: #FFD700; font-size: 5em; text-shadow: 4px 4px 8px #000;">马六甲：东方十字路口</h1>
+            <h2 style="color: #f4ecd8; font-size: 2.5em; text-shadow: 2px 2px 4px #000;">— 历史的辉煌与选择 —</h2>
+        </div>
+        
+        <div id="api-setup" style="margin: 20px auto; background: rgba(0,0,0,0.6); padding: 20px; border-radius: 15px; width: 80%; border: 2px solid #FFD700;">
+            <p style="color: #FFD700; font-size: 1.5em; margin: 0 0 10px 0;">🔌 外接 API 设置 (使臣交涉/政策游说 体验必需)</p>
+            <input type="password" id="api-key-input" class="group-input" style="font-size: 1.2em; width: 70%; padding: 10px; margin-bottom: 10px;" placeholder="在此输入 Gemini API Key">
+            <br>
+            <button class="sys-btn" style="font-size: 1.2em; padding: 10px 20px; width: auto; background: #FFD700; color: #003366; border-color: #f4ecd8;" onclick="detectModels()">🔍 检测并加载模型</button>
+            <br>
+            <select id="model-select" class="group-input" style="font-size: 1.2em; width: 70%; padding: 10px; margin-top: 10px; display: none; background: #fff; color: #000;"></select>
+        </div>
+
+        <button class="sys-btn" style="background: #FFD700; color: #003366; font-size: 3em; height: 150px; margin-top: 20px; text-shadow: none;" onclick="initAll()">🚢 扬帆起航 🚢</button>
+    </div>
+</div>
+
+<div id="p-setup" class="panel">
+    <h2>设定玩家数量</h2>
+    <div style="text-align: center; margin-top: 50px;">
+        <p style="font-size: 2em; color: #003366;">有多少位玩家准备见证马六甲的兴衰：</p>
+        <input type="number" id="g-count" value="3" class="group-input"><br><br>
+        <button class="sys-btn" onclick="goNaming()">下一步：输入商号/姓名</button>
+    </div>
+</div>
+
+<div id="p-naming" class="panel">
+    <h2>玩家名录</h2>
+    <div id="name-container" style="flex-grow: 1; overflow-y: auto; padding: 20px;"></div>
+    <button class="sys-btn" onclick="saveGroups()">进入港口</button>
+</div>
+
+<div id="p-menu" class="panel">
+    <h2>📜 满剌加海峡大地图</h2>
+    <div id="group-list" style="flex-grow: 1; overflow-y: auto;"></div>
+</div>
+
+<div id="p-game" class="panel">
+    <div id="status-bar">
+        <span id="show-gname">玩家</span>
+        <span id="show-stat">状态</span>
+    </div>
+
+    <div id="scene-img-area" style="text-align: center; margin-bottom: 10px;"></div>
+
+    <div id="story-text"></div>
+    <div id="choice-area"></div>
+    
+    <div id="ai-area">
+        <div class="back-hall-btn" onclick="runScene('MENU')">🚪 返回大厅</div>
+        <div id="hearts-display" style="font-size: 2em; text-align: center; margin-bottom: 10px;">❤️❤️❤️</div>
+        <div id="chat-box"></div>
+        <div style="display: flex; margin-top: 10px;">
+            <input type="text" id="ai-input" class="group-input" style="flex-grow: 1; margin: 0; font-size: 1.5em;" placeholder="开始交涉..." onkeypress="handleEnter(event)">
+            <button id="ai-send-btn" onclick="chatWithKing()" style="width: 150px; font-size: 1.8em; background: #FFD700; color: #003366; cursor: pointer; border: 3px solid #003366; font-weight: 900; border-radius: 10px;">交涉</button>
+        </div>
+        <button id="final-revolt" class="sys-btn" style="display:none; background: #4a2e15; border-color: #FFD700; margin-top: 10px; padding: 15px;" onclick="judgeAIEnding()">📜 结束交涉，查看结局</button>
+    </div>
+</div>
+
+<!-- 占位音效，如需可更换对应文件 -->
+<audio id="bg-music" loop src="assets/bgm.mp3"></audio>
+<audio id="drum-effect" src="../assets/drum.mp3"></audio>
+
+<script src="melaka_story.js"></script>
+<script src="melaka_game.js"></script>
+</body>
+</html>
