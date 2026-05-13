@@ -8,6 +8,13 @@
 [![Gamified Learning](https://img.shields.io/badge/Learning-Gamified-orange.svg)](#)
 [![Education](https://img.shields.io/badge/Education-Syllabus%20Based-blue.svg)](#)
 
+---
+
+### 👤 制作者 (Creator)
+**华联中学 —— 朱彦翰 (Chu Yen Han)**
+
+---
+
 ## 🌟 为什么选择这个游戏？
 
 这不仅仅是一个游戏，更是一次**穿越时空的复习课**！
@@ -45,7 +52,7 @@
 ## 🛠️ 如何开始 (Quick Start)
 
 1.  **准备秘钥**：前往 [Google AI Studio](https://aistudio.google.com/) 免费获取你的 API Key。
-2.  **运行游戏**：下载本项目后，双击 `melaka_index.html` 即可在浏览器开启。
+2.  **运行游戏**：下载本项目后，点击 `index.html` 即可在浏览器开启。
 3.  **输入秘钥**：在首页输入你的 Key，点击“扬帆起航”，开启你的历史霸业！
 
 ---
