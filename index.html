@@ -34,8 +34,40 @@
             <select id="model-select" class="group-input" style="font-size: 1.2em; width: 70%; padding: 10px; margin-top: 10px; display: none; background: #fff; color: #000;"></select>
         </div>
 
-        <button class="sys-btn" style="background: #FFD700; color: #003366; font-size: 3em; height: 150px; margin-top: 20px; text-shadow: none;" onclick="initAll()">🚢 扬帆起航 🚢</button>
+            <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+            <button class="sys-btn" style="background: #FFD700; color: #003366; font-size: 2.5em; height: 120px; padding: 0 40px; text-shadow: none;" onclick="initAll()">🚢 扬帆起航 🚢</button>
+            <button class="sys-btn" style="background: #4a2e15; color: #FFD700; font-size: 1.5em; height: 120px; width: 250px; border-color: #FFD700;" onclick="toggleModal(true)">📜 游戏指南<br>& 历史背景</button>
+        </div>
     </div>
+</div>
+
+<!-- 卷轴弹窗 -->
+<div id="guide-modal" class="modal-overlay" onclick="if(event.target==this) toggleModal(false)">
+    <div class="modal-content">
+        <button class="modal-close" onclick="toggleModal(false)">关闭 ✖</button>
+        <h3>🚢 马六甲：东方十字路口 —— 游戏指南</h3>
+        <p><b>制作者：华联中学 —— 朱彦翰 (Chu Yen Han)</b></p>
+        <hr>
+        <p><b>🌟 游戏初衷：</b><br>本作专为<b>马来西亚华文独中《初一历史》</b>课程设计，旨在通过 AI 交互技术，让学生亲身体验马六甲王朝的辉煌与挑战。</p>
+        
+        <p><b>📚 核心考点：</b><br>在游戏中，你将遇到以下课本关键考点，请务必关注：
+            <ul>
+                <li><b>84 种语言</b>：感受国际贸易港口的多元。</li>
+                <li><b>官厂 (Guan Chang)</b>：明朝郑和船队的后勤基地。</li>
+                <li><b>金银锡币</b>：掌握当时的商贸命脉。</li>
+                <li><b>小麦加</b>：见证伊斯兰教的传播中心。</li>
+            </ul>
+        </p>
+
+        <p><b>🧠 AI 交涉系统：</b><br>
+            1. 获得 API Key：前往 <a href="https://aistudio.google.com/" target="_blank" style="color: #003366;">Google AI Studio</a> 免费获取。<br>
+            2. AI 情绪：如果你前期的决策导致国家属性（外交、安全等）过低，AI 会对你表现出<b>厌恶与斥责</b>。<br>
+            3. 翻盘技巧：在对话中输入<b>历史关键词</b>（如：黄伞、官厂等），将大幅提升说服成功率！
+        </p>
+        
+        <p style="text-align: center; font-style: italic; color: #003366;">“历史的十字路口，马六甲的命运由你掌握。”</p>
+    </div>
+</div>
 </div>
 
 <div id="p-setup" class="panel">

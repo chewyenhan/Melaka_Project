@@ -583,3 +583,10 @@ function showP(id) {
         console.error("找不到 ID 为 " + id + " 的面板");
     }
 }
+
+function toggleModal(show) {
+    const modal = document.getElementById('guide-modal');
+    if (modal) {
+        modal.style.display = show ? 'flex' : 'none';
+    }
+}
