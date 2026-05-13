@@ -2,6 +2,9 @@
 
 > **专为马来西亚华文独中《初一历史》课程设计！让马六甲王朝的历史在你的屏幕上重现辉煌。**
 
+## 🎮 [👉 点击这里：立即在线试玩！](https://chewyenhan.github.io/Melaka_Project/)
+*(无需下载，打开即玩！)*
+
 [![Gamified Learning](https://img.shields.io/badge/Learning-Gamified-orange.svg)](#)
 [![Education](https://img.shields.io/badge/Education-Syllabus%20Based-blue.svg)](#)
 
