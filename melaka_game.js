@@ -1,4 +1,4 @@
-// ==========================================
+﻿// ==========================================
 // 1. 核心状态与初始化
 // ==========================================
 const gameState = {
@@ -426,10 +426,10 @@ function judgeAIEnding() {
 }
 
 function buildEndingHtml() {
-    const role = gameState.role || “无名氏”;
-    let title = “”;
-    let body = “”;
-    let tag = “”;
+    const role = gameState.role || "无名氏";
+    let title = "";
+    let body = "";
+    let tag = "";
     const kwCount = gameState.keywordCount || 0;
     const evCount = (gameState.usedEvents || []).length;
     const requiredMin = gameState.requiredKeywordMin;
@@ -437,21 +437,21 @@ function buildEndingHtml() {
     // 三级结局判定
     if (gameState.keywordHit && kwCount >= 5) {
         // 完美结局：关键词≥5 且 AI 说服成功
-        title = “【全盛结局：东南亚的明珠】”;
+        title = "【全盛结局：东南亚的明珠】";
         tag = `交涉完美（关键词${kwCount}个${evCount > 0 ? ' + 事件' + evCount + '个' : ''}）`;
         body = `你运用精准的历史洞察力和丰富的课文知识，成功说服了对方。<br>
-        你的建议契合了历史的发展潮流。马六甲迎来了空前的繁荣：商船云集，八十四种语言在巴刹交汇，金银锡币流通顺畅，大明的黄伞与官厂保障了和平，伊斯兰教在这里生根发芽，马六甲成为名副其实的”小麦加”。<br>
+        你的建议契合了历史的发展潮流。马六甲迎来了空前的繁荣：商船云集，八十四种语言在巴刹交汇，金银锡币流通顺畅，大明的黄伞与官厂保障了和平，伊斯兰教在这里生根发芽，马六甲成为名副其实的"小麦加"。<br>
         作为一名<b>${role}</b>，你促成了这个伟大的黄金时代！`;
     } else if (gameState.keywordHit && kwCount >= requiredMin) {
         // 合格结局：关键词达标 且 AI 说服成功
-        title = “【发展结局：稳步前行】”;
+        title = "【发展结局：稳步前行】";
         tag = `交涉通过（关键词${kwCount}个，刚好达标）`;
         body = `你的论述包含了基本的历史知识点，成功说服了对方。<br>
         马六甲在你的推动下缓慢发展：贸易和外交有所改善，但因为你未能展现更深的历史洞见，许多潜在机遇未能充分把握。<br>
         作为一名<b>${role}</b>，你勉强及格，但历史本可以更加辉煌。💡下次试试使用更多课文关键词！`;
     } else {
         // 失败结局
-        title = “【衰落结局：风雨飘摇】”;
+        title = "【衰落结局：风雨飘摇】";
         tag = `交涉失败（关键词仅${kwCount}/${requiredMin}个）`;
         body = `你的言辞空洞无物，未能打动对方。<br>
         由于缺乏远见卓识的政策和有力的历史知识支撑，马六甲未能抓住历史的机遇。外有暹罗的持续施压，内有商业秩序的混乱，这片东方十字路口的辉煌逐渐黯淡。<br>
@@ -460,23 +460,23 @@ function buildEndingHtml() {
 
     // 显示已使用的关键词
     const usedKwDisplay = (gameState.usedKeywords || []).length > 0
-        ? `<div style=”margin-top:10px;padding:8px 12px;background:#e3f2fd;border-radius:8px;font-size:0.95em;”>
+        ? `<div style="margin-top:10px;padding:8px 12px;background:#e3f2fd;border-radius:8px;font-size:0.95em;">
             📝 你使用的历史关键词：<b>${gameState.usedKeywords.join('、')}</b>
            </div>`
-        : `<div style=”margin-top:10px;padding:8px 12px;background:#ffebee;border-radius:8px;font-size:0.95em;”>
+        : `<div style="margin-top:10px;padding:8px 12px;background:#ffebee;border-radius:8px;font-size:0.95em;">
             ⚠️ 你未使用任何课文历史关键词。
            </div>`;
 
     const usedEvDisplay = (gameState.usedEvents || []).length > 0
-        ? `<div style=”margin-top:6px;padding:8px 12px;background:#f3e5f5;border-radius:8px;font-size:0.95em;”>
+        ? `<div style="margin-top:6px;padding:8px 12px;background:#f3e5f5;border-radius:8px;font-size:0.95em;">
             🏛️ 你提及的历史事件/概念：<b>${gameState.usedEvents.join('、')}</b>
            </div>`
-        : “”;
+        : "";
 
     const picks = (gameState.choiceHistory || []).slice(-3);
     const recap = picks.length
-        ? `<div class=”ending-body” style=”margin-top:14px; background: rgba(0, 51, 102, 0.1);”>
-            <div style=”font-size:1.2em; font-weight:900; margin-bottom:8px; color: #003366;”>你的历程回顾</div>
+        ? `<div class="ending-body" style="margin-top:14px; background: rgba(0, 51, 102, 0.1);">
+            <div style="font-size:1.2em; font-weight:900; margin-bottom:8px; color: #003366;">你的历程回顾</div>
             ${picks.map(x => {
                 const dd = x.d || {};
                 const p = [
@@ -485,22 +485,22 @@ function buildEndingHtml() {
                     formatDelta('外交', dd.diplomacy, '🤝'),
                     formatDelta('宗教', dd.religion, '🕌'),
                 ].filter(Boolean).join(' ｜ ');
-                return `<div style=”margin:10px 0; color: #4a2e15;”>
-                    <div style=”font-weight:900;”>- ${x.t}</div>
-                    <div style=”opacity:0.9; font-size:1.1em;”>${p || “（无明显变化）”}</div>
+                return `<div style="margin:10px 0; color: #4a2e15;">
+                    <div style="font-weight:900;">- ${x.t}</div>
+                    <div style="opacity:0.9; font-size:1.1em;">${p || "（无明显变化）"}</div>
                 </div>`;
             }).join('')}
           </div>`
-        : “”;
+        : "";
 
     return `
-        <b style=”color: #003366; font-size: 1.2em;”>${title}</b><br>
-        <div class=”ending-meta”>身份：<b>${role}</b> ｜ 标签：<b style=”color: #cc0000;”>${tag}</b></div>
-        <div class=”ending-body” style=”color: #1a1a1a;”>${body}</div>
+        <b style="color: #003366; font-size: 1.2em;">${title}</b><br>
+        <div class="ending-meta">身份：<b>${role}</b> ｜ 标签：<b style="color: #cc0000;">${tag}</b></div>
+        <div class="ending-body" style="color: #1a1a1a;">${body}</div>
         ${usedKwDisplay}
         ${usedEvDisplay}
         ${recap}
-        <div class=”ending-tip” style=”color: #003366;”>💡 历史课文提示：与关键NPC交涉时，必须使用至少 <b>${requiredMin}</b> 个课文核心关键词（如：84种语言、金银锡币、黄伞、官厂、小麦加等），并提及相关历史事件，方能说服对方！</div>
+        <div class="ending-tip" style="color: #003366;">💡 历史课文提示：与关键NPC交涉时，必须使用至少 <b>${requiredMin}</b> 个课文核心关键词（如：84种语言、金银锡币、黄伞、官厂、小麦加等），并提及相关历史事件，方能说服对方！</div>
     `;
 }
     
