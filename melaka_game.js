@@ -535,7 +535,7 @@ async function detectModels() {
         console.warn("❌ 模型加载失败，使用默认列表", err);
         if (status) status.innerText = "⚠️ 自动连接失败，使用内置线路";
         select.innerHTML = '';
-        ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'].forEach(m => {
+        ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-pro-exp'].forEach(m => {
             const opt = document.createElement('option');
             opt.value = m;
             opt.text = m;
