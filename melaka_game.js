@@ -589,6 +589,7 @@ async function chatWithKing() {
     // --- 客户端检测结束 ---
 
     const prompt = buildKingPrompt(msg);
+    // 实时读取用户选择的模型
     const model = document.getElementById('model-select').value;
 
     try {
