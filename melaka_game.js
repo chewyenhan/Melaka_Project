@@ -737,3 +737,6 @@ function toggleModal(show) {
         modal.style.display = show ? 'flex' : 'none';
     }
 }
+
+// 自动初始化：在页面加载时检测模型
+detectModels();
