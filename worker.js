@@ -11,20 +11,22 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         headers: {
-          'Access-Control-Allow-Origin': 'https://chewyenhan.github.io',
+          'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
           'Access-Control-Allow-Headers': 'Content-Type'
         }
       });
     }
 
-    const corsHeaders = { 'Access-Control-Allow-Origin': 'https://chewyenhan.github.io' };
+    const corsHeaders = { 'Access-Control-Allow-Origin': '*' };
 
     // --- 端点 1: 获取模型列表 ---
     if (url.pathname === '/models' && request.method === 'GET') {
       const models = {
         models: [
-          { name: 'models/gemini-2.0-flash', displayName: 'Gemini 2.0 Flash (推荐)' },
+          { name: 'models/gemini-2.5-flash', displayName: 'Gemini 2.5 Flash (推荐)' },
+          { name: 'models/gemini-2.5-pro', displayName: 'Gemini 2.5 Pro' },
+          { name: 'models/gemini-2.0-flash', displayName: 'Gemini 2.0 Flash' },
           { name: 'models/gemini-1.5-flash', displayName: 'Gemini 1.5 Flash' },
           { name: 'models/gemini-1.5-pro', displayName: 'Gemini 1.5 Pro' }
         ]
@@ -38,7 +40,7 @@ export default {
     if (url.pathname === '/gemini' && request.method === 'POST') {
       try {
         const body = await request.json();
-        const model = body.model || 'gemini-2.0-flash';
+        const model = body.model || 'gemini-2.5-flash';
 
         const geminiBody = {
           system_instruction: body.system_instruction,
