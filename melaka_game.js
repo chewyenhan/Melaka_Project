@@ -21,6 +21,8 @@ let customApiKey = ""; let gData = []; let cIdx = -1; let aiCnt = 0;
 let speechVolume = 0.8;
 let speakSeq = 0;
 
+const WORKER_URL = 'https://melaka-ai.chewyenhan.workers.dev';
+
 // ==========================================
 // 2. 本地音效与语音控制 (沿用 1789 逻辑)
 // ==========================================
@@ -508,32 +510,30 @@ function buildEndingHtml() {
 // 5. API 通信与对话系统
 // ==========================================
 async function detectModels() {
-    const keyInput = document.getElementById('api-key-input').value.trim();
-    if(!keyInput) { alert("请先输入 API Key！"); return; }
-    customApiKey = keyInput;
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${customApiKey}`);
+        const response = await fetch(`${WORKER_URL}/models`);
         const data = await response.json();
         const select = document.getElementById('model-select');
         select.innerHTML = '';
         data.models.forEach(m => {
-            if(m.name.includes('gemini')) {
-                const opt = document.createElement('option');
-                opt.value = m.name.replace('models/', '');
-                opt.text = m.displayName || m.name;
-                select.appendChild(opt);
-            }
+            const opt = document.createElement('option');
+            opt.value = m.name.replace('models/', '');
+            opt.text = m.displayName || m.name;
+            select.appendChild(opt);
         });
         select.style.display = 'inline-block';
-        alert("✅ API 检测成功！");
-    } catch (err) { alert("❌ 检测失败"); }
+        // 自动选择第一个模型
+        if (select.options.length > 0) {
+            select.selectedIndex = 0;
+        }
+    } catch (err) { console.error("❌ 模型加载失败", err); }
 }
 
 async function chatWithKing() {
     const inp = document.getElementById('ai-input');
     const box = document.getElementById('chat-box');
     const msg = inp.value.trim();
-    if(!msg || !customApiKey) return;
+    if(!msg) return;
     if (aiCnt >= 3) return;
     if (inp && inp.disabled) return;
     const sendBtn = document.getElementById('ai-send-btn');
@@ -575,9 +575,13 @@ async function chatWithKing() {
     const model = document.getElementById('model-select').value;
 
     try {
-        const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${customApiKey}`, {
+        const resp = await fetch(`${WORKER_URL}/gemini`, {
             method: 'POST',
-            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                model: model,
+                contents: [{ parts: [{ text: prompt }] }] 
+            })
         });
         const data = await resp.json();
         let replayRaw = data.candidates[0].content.parts[0].text;
@@ -664,7 +668,10 @@ function updateStatusDisplay() {
     }
 }
 
-function initAll() { showP('p-setup'); }
+function initAll() { 
+    detectModels();
+    showP('p-setup'); 
+}
 
 function goNaming() {
     const count = document.getElementById('g-count').value;
