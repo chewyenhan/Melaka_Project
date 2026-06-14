@@ -510,23 +510,40 @@ function buildEndingHtml() {
 // 5. API 通信与对话系统
 // ==========================================
 async function detectModels() {
+    const select = document.getElementById('model-select');
+    const status = document.getElementById('model-status');
     try {
         const response = await fetch(`${WORKER_URL}/models`);
         const data = await response.json();
-        const select = document.getElementById('model-select');
         select.innerHTML = '';
-        data.models.forEach(m => {
-            const opt = document.createElement('option');
-            opt.value = m.name.replace('models/', '');
-            opt.text = m.displayName || m.name;
-            select.appendChild(opt);
-        });
-        select.style.display = 'inline-block';
-        // 自动选择第一个模型
+        if (data.models) {
+            data.models.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m.name.replace('models/', '');
+                opt.text = m.displayName || m.name;
+                select.appendChild(opt);
+            });
+        }
         if (select.options.length > 0) {
             select.selectedIndex = 0;
+            if (status) status.innerText = "✅ AI 服务连接成功";
+            select.style.display = 'inline-block';
+        } else {
+            throw new Error("No models returned");
         }
-    } catch (err) { console.error("❌ 模型加载失败", err); }
+    } catch (err) { 
+        console.warn("❌ 模型加载失败，使用默认列表", err);
+        if (status) status.innerText = "⚠️ 自动连接失败，使用内置线路";
+        select.innerHTML = '';
+        ['gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'].forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.text = m;
+            select.appendChild(opt);
+        });
+        select.selectedIndex = 0;
+        select.style.display = 'inline-block';
+    }
 }
 
 async function chatWithKing() {
