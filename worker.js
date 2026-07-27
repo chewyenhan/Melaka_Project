@@ -36,10 +36,7 @@ export default {
     if (url.pathname === '/models' && request.method === 'GET') {
       return new Response(JSON.stringify({
         models: [
-          { name: 'models/gemini-3.5-flash-lite', displayName: 'Gemini 3.5 Flash Lite (推荐)' },
-          { name: 'models/gemini-2.5-flash', displayName: 'Gemini 2.5 Flash' },
-          { name: 'models/gemini-2.0-flash', displayName: 'Gemini 2.0 Flash' },
-          { name: 'models/gemini-1.5-flash', displayName: 'Gemini 1.5 Flash' }
+          { name: 'models/gemini-3.5-flash-lite', displayName: 'Gemini 3.5 Flash Lite (推荐)' }
         ]
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
@@ -73,7 +70,7 @@ export default {
 
       try {
         const body = await request.json();
-        const model = body.model || 'gemini-3.5-flash-lite';
+        const model = 'gemini-3.5-flash-lite';
 
         const geminiBody = { contents: body.contents };
         if (body.system_instruction) geminiBody.system_instruction = body.system_instruction;
