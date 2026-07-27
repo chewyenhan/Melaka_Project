@@ -36,7 +36,7 @@ export default {
     if (url.pathname === '/models' && request.method === 'GET') {
       return new Response(JSON.stringify({
         models: [
-          { name: 'models/gemini-3.5-flash-lite', displayName: 'Gemini 3.5 Flash Lite (推荐)' }
+          { name: 'models/gemini-2.5-flash', displayName: 'Gemini 2.5 Flash (免费推荐)' }
         ]
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
@@ -70,23 +70,18 @@ export default {
 
       try {
         const body = await request.json();
-        const model = 'gemini-3.5-flash-lite';
+        const model = 'gemini-2.5-flash';
 
         const geminiBody = { contents: body.contents };
         if (body.system_instruction) geminiBody.system_instruction = body.system_instruction;
         if (body.generationConfig) geminiBody.generationConfig = body.generationConfig;
 
-        const resp = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'x-goog-api-key': env.GEMINI_API_KEY
-            },
-            body: JSON.stringify(geminiBody)
-          }
-        );
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${env.GEMINI_API_KEY}`;
+        const resp = await fetch(apiUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(geminiBody)
+        });
         const respText = await resp.text();
 
         return new Response(respText, {
